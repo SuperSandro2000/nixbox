@@ -24,7 +24,6 @@ def builder(**opts)
       'sudo systemctl start sshd<enter>',
     ],
     http_directory: 'scripts',
-    iso_checksum_type: 'sha256',
     shutdown_command: 'sudo shutdown -h now',
     ssh_private_key_file: './scripts/install_rsa',
     ssh_port: 22,
@@ -62,7 +61,7 @@ def gen_template(
       builder(
         type: 'virtualbox-iso',
         iso_url: iso_url,
-        iso_checksum: iso_sha256,
+        iso_checksum: 'sha256:' + iso_sha256,
         guest_additions_mode: 'disable',
         format: 'ova',
         guest_os_type: guest_os_type,
@@ -74,7 +73,7 @@ def gen_template(
       builder(
         type: 'qemu',
         iso_url: iso_url,
-        iso_checksum: iso_sha256,
+        iso_checksum: 'sha256:' + iso_sha256,
         disk_interface: 'virtio-scsi',
         disk_size: '{{ user `disk_size` }}',
         format: 'qcow2',
@@ -87,7 +86,7 @@ def gen_template(
         generation: 1,
         # generation: 2, # gen 2 fails uefi boot, missing configuration in builders/hyperv-iso.nix
         iso_url: iso_url,
-        iso_checksum: iso_sha256,
+        iso_checksum: 'sha256:' + iso_sha256,
         boot_wait: "60s",
         boot_command: [
           "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
@@ -110,7 +109,7 @@ def gen_template(
       builder(
         type: 'vmware-iso',
         iso_url: iso_url,
-        iso_checksum: iso_sha256,
+        iso_checksum: 'sha256:' + iso_sha256,
         memory: '{{ user `memory` }}',
         disk_size: '{{ user `disk_size` }}',
         guest_os_type: "Linux"
