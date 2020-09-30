@@ -13,14 +13,15 @@
         "sudo systemctl start sshd<enter>"
       ],
       "http_directory": "scripts",
+      "iso_checksum_type": "sha256",
       "shutdown_command": "sudo shutdown -h now",
       "ssh_private_key_file": "./scripts/install_rsa",
       "ssh_port": 22,
       "ssh_username": "nixos",
       "headless": true,
       "type": "virtualbox-iso",
-      "iso_url": "https://channels.nixos.org/nixos-20.03/latest-nixos-minimal-i686-linux.iso",
-      "iso_checksum": "sha256:8d3002bd3639fb22da02c40a5bf00f1c9e5a167b8a4828e9e4aaa0d6c140558a",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-i686-linux.iso",
+      "iso_checksum": "f8998e59a186323d362a0f65da1d9b5921d4f9c4308f3e6199f469ebf3067e26",
       "guest_additions_mode": "disable",
       "format": "ova",
       "guest_os_type": "Linux",
@@ -54,8 +55,8 @@
       "ssh_username": "nixos",
       "headless": true,
       "type": "qemu",
-      "iso_url": "https://channels.nixos.org/nixos-20.03/latest-nixos-minimal-i686-linux.iso",
-      "iso_checksum": "8d3002bd3639fb22da02c40a5bf00f1c9e5a167b8a4828e9e4aaa0d6c140558a",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-i686-linux.iso",
+      "iso_checksum": "f8998e59a186323d362a0f65da1d9b5921d4f9c4308f3e6199f469ebf3067e26",
       "disk_interface": "virtio-scsi",
       "disk_size": "{{ user `disk_size` }}",
       "format": "qcow2",
@@ -86,8 +87,8 @@
       "headless": true,
       "type": "hyperv-iso",
       "generation": 1,
-      "iso_url": "https://channels.nixos.org/nixos-20.03/latest-nixos-minimal-i686-linux.iso",
-      "iso_checksum": "8d3002bd3639fb22da02c40a5bf00f1c9e5a167b8a4828e9e4aaa0d6c140558a",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-i686-linux.iso",
+      "iso_checksum": "f8998e59a186323d362a0f65da1d9b5921d4f9c4308f3e6199f469ebf3067e26",
       "memory": "{{ user `memory` }}",
       "disk_size": "{{ user `disk_size` }}",
       "enable_secure_boot": false,
@@ -112,8 +113,8 @@
       "ssh_username": "nixos",
       "headless": true,
       "type": "vmware-iso",
-      "iso_url": "https://channels.nixos.org/nixos-20.03/latest-nixos-minimal-i686-linux.iso",
-      "iso_checksum": "8d3002bd3639fb22da02c40a5bf00f1c9e5a167b8a4828e9e4aaa0d6c140558a",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-i686-linux.iso",
+      "iso_checksum": "f8998e59a186323d362a0f65da1d9b5921d4f9c4308f3e6199f469ebf3067e26",
       "memory": "{{ user `memory` }}",
       "disk_size": "{{ user `disk_size` }}",
       "guest_os_type": "Linux"
@@ -136,7 +137,7 @@
           "qemu",
           "hyperv-iso"
         ],
-        "output": "nixos-20.03-{{.Provider}}-i686.box"
+        "output": "nixos-20.09-{{.Provider}}-i686.box"
       }
     ]
   ]
