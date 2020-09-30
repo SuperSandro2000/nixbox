@@ -1,31 +1,27 @@
 {
-  "variables": {
-    "disk_size": "10240",
-    "memory": "1024"
-  },
   "builders": [
     {
-      "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
         "sudo systemctl start sshd<enter>"
       ],
-      "http_directory": "scripts",
-      "iso_checksum_type": "sha256",
-      "shutdown_command": "sudo shutdown -h now",
-      "ssh_private_key_file": "./scripts/install_rsa",
-      "ssh_port": 22,
-      "ssh_username": "nixos",
-      "headless": true,
-      "type": "virtualbox-iso",
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
-      "guest_additions_mode": "disable",
-      "format": "ova",
-      "guest_os_type": "Linux_64",
+      "boot_wait": "45s",
       "disk_size": "{{ user `disk_size` }}",
+      "format": "ova",
+      "guest_additions_mode": "disable",
+      "guest_os_type": "Linux_64",
+      "headless": true,
+      "http_directory": "scripts",
+      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
+      "iso_checksum_type": "sha256",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
+      "shutdown_command": "sudo shutdown -h now",
+      "ssh_port": 22,
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_username": "nixos",
+      "type": "virtualbox-iso",
       "vboxmanage": [
         [
           "modifyvm",
@@ -40,35 +36,34 @@
       ]
     },
     {
-      "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
         "sudo systemctl start sshd<enter>"
       ],
-      "http_directory": "scripts",
-      "iso_checksum_type": "sha256",
-      "shutdown_command": "sudo shutdown -h now",
-      "ssh_private_key_file": "./scripts/install_rsa",
-      "ssh_port": 22,
-      "ssh_username": "nixos",
-      "headless": true,
-      "type": "qemu",
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
+      "boot_wait": "45s",
       "disk_interface": "virtio-scsi",
       "disk_size": "{{ user `disk_size` }}",
       "format": "qcow2",
+      "headless": true,
+      "http_directory": "scripts",
+      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
+      "iso_checksum_type": "sha256",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
       "qemuargs": [
         [
           "-m",
           "{{ user `memory` }}"
         ]
-      ]
+      ],
+      "shutdown_command": "sudo shutdown -h now",
+      "ssh_port": 22,
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_username": "nixos",
+      "type": "qemu"
     },
     {
-      "boot_wait": "60s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
@@ -78,67 +73,72 @@
         "$(find /nix/store -executable -iname 'hv_kvp_daemon' | head -n 1)<enter><wait10>",
         "systemctl start sshd<enter>"
       ],
-      "http_directory": "scripts",
-      "iso_checksum_type": "sha256",
-      "shutdown_command": "sudo shutdown -h now",
-      "ssh_private_key_file": "./scripts/install_rsa",
-      "ssh_port": 22,
-      "ssh_username": "nixos",
-      "headless": true,
-      "type": "hyperv-iso",
-      "generation": 1,
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
-      "memory": "{{ user `memory` }}",
+      "boot_wait": "60s",
+      "communicator": "ssh",
+      "differencing_disk": true,
       "disk_size": "{{ user `disk_size` }}",
       "enable_secure_boot": false,
+      "generation": 1,
+      "headless": true,
+      "http_directory": "scripts",
+      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
+      "iso_checksum_type": "sha256",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
+      "memory": "{{ user `memory` }}",
+      "shutdown_command": "sudo shutdown -h now",
+      "ssh_port": 22,
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_timeout": "1h",
+      "ssh_username": "nixos",
       "switch_name": "Default Switch",
-      "differencing_disk": true,
-      "communicator": "ssh",
-      "ssh_timeout": "1h"
+      "type": "hyperv-iso"
     },
     {
-      "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
         "curl $(cat .packer_http)/install_rsa.pub > .ssh/authorized_keys<enter>",
         "sudo systemctl start sshd<enter>"
       ],
-      "http_directory": "scripts",
-      "iso_checksum_type": "sha256",
-      "shutdown_command": "sudo shutdown -h now",
-      "ssh_private_key_file": "./scripts/install_rsa",
-      "ssh_port": 22,
-      "ssh_username": "nixos",
-      "headless": true,
-      "type": "vmware-iso",
-      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
-      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
-      "memory": "{{ user `memory` }}",
+      "boot_wait": "45s",
       "disk_size": "{{ user `disk_size` }}",
-      "guest_os_type": "Linux"
-    }
-  ],
-  "provisioners": [
-    {
-      "execute_command": "sudo su -c '{{ .Vars }} {{.Path}}'",
-      "type": "shell",
-      "script": "./scripts/install.sh"
+      "guest_os_type": "Linux",
+      "headless": true,
+      "http_directory": "scripts",
+      "iso_checksum": "1a71b742e0c3178457d72442c1050f04311435f0a6a7803d1d339104205af2b8",
+      "iso_checksum_type": "sha256",
+      "iso_url": "https://channels.nixos.org/nixos-20.09/latest-nixos-minimal-x86_64-linux.iso",
+      "memory": "{{ user `memory` }}",
+      "shutdown_command": "sudo shutdown -h now",
+      "ssh_port": 22,
+      "ssh_private_key_file": "./scripts/install_rsa",
+      "ssh_username": "nixos",
+      "type": "vmware-iso"
     }
   ],
   "post-processors": [
     [
       {
-        "type": "vagrant",
         "keep_input_artifact": false,
         "only": [
           "virtualbox-iso",
           "qemu",
           "hyperv-iso"
         ],
-        "output": "nixos-20.09-{{.Provider}}-x86_64.box"
+        "output": "nixos-20.09-{{.Provider}}-x86_64.box",
+        "type": "vagrant"
       }
     ]
-  ]
+  ],
+  "provisioners": [
+    {
+      "execute_command": "sudo su -c '{{ .Vars }} {{.Path}}'",
+      "script": "./scripts/install.sh",
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "disk_size": "10240",
+    "memory": "1024"
+  }
 }
