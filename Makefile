@@ -12,9 +12,11 @@ update_template: nixos-i686.json nixos-x86_64.json
 
 nixos-i686.json: gen_template.rb iso_urls.json
 	./gen_template.rb i686 > $@
+	packer fix $@ | sponge $@
 
 nixos-x86_64.json: gen_template.rb iso_urls.json
 	./gen_template.rb x86_64 > $@
+	packer fix $@ | sponge $@
 
 build: build-i686 build-x86_64
 
